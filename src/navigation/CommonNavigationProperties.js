@@ -22,4 +22,4 @@ export const innerStackNavigationScreenOptions = {
   headerShown: true
 };
 
-export const tabBarScreenOptions = { tabBarVisible: false };
+export const tabBarScreenOptions = { tabBarVisible: true };

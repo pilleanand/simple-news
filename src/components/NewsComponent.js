@@ -1,10 +1,9 @@
 import React from 'react';
 import { View, FlatList, StyleSheet, Image } from 'react-native';
-import { Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import { Card, CardItem, Text, Icon, Left, Right } from 'native-base';
 import { fetchNewsDataApi } from '../apis/NewsApi';
-import SpinnerComponent from './common/SpinnerComponent';
-import HTMLRenderComponent from './common/HTMLRenderComponent';
 import { getRelativeDate } from '../util/DateUtility';
+import { getDeviceHeight } from '../util/commonUtility';
 
 const NewsComponent = (props) => {
   const [newsData, setNewsData] = React.useState([]);
@@ -12,12 +11,19 @@ const NewsComponent = (props) => {
 
   React.useEffect(() => {
     fetchNewsData();
-  }, []);
+  }, [props.newsType]);
 
   const fetchNewsData = async () => {
-    const newsData = await fetchNewsDataApi();
+    const newsData = await fetchNewsDataApi(props.newsType);
     setShowProgress(false);
-    setNewsData(newsData.articles);
+    if (newsData) {
+      setNewsData(newsData.articles);
+    }
+  }
+
+  const onRefresh = () => {
+    setShowProgress(true);
+    fetchNewsData();
   }
 
   renderArticleItem = ({ item }) => ((
@@ -41,15 +47,14 @@ const NewsComponent = (props) => {
   ));
 
   return (
-    <>
-      <SpinnerComponent showProgress={showProgress} />
-      <FlatList
-        data={newsData}
-        renderItem={renderArticleItem}
-        keyExtractor={(item) => 'articles' + Math.random() * 1000}
-        style={styles.flatlistStyle}
-      />
-    </>
+    <FlatList
+      data={newsData}
+      renderItem={renderArticleItem}
+      onRefresh={onRefresh}
+      refreshing={showProgress}
+      keyExtractor={(item) => 'articles' + Math.random() * 1000}
+      style={styles.flatlistStyle}
+    />
   );
 }
 
@@ -59,7 +64,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'black'
   },
-  flatlistStyle: { marginTop: 20, marginBottom: 10 },
+  flatlistStyle: { marginTop: 20, marginBottom: 10, height: getDeviceHeight() - 40 },
   cardItemStyle: {
     alignItems: 'center',
     paddingBottom: 15,

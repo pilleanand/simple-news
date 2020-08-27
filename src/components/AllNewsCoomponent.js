@@ -2,12 +2,12 @@ import React from 'react';
 import { View } from 'react-native';
 import NewsComponent from './NewsComponent';
 
-const MainComponent = () => {
+const AllNewsCoomponent = () => {
   return (
     <View >
-      <NewsComponent />
+      <NewsComponent newsType={'allNews'} />
     </View>
   );
 }
 
-export default MainComponent;
+export default AllNewsCoomponent;

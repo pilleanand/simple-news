@@ -1,19 +1,16 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MainComponent from '../components/MainComponent';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import TopNewsCoomponent from '../components/TopNewsCoomponent';
 import { tabBarScreenOptions } from './CommonNavigationProperties';
+import AllNewsCoomponent from '../components/AllNewsCoomponent';
 
-const Tab = createBottomTabNavigator();
-// const SubjectContext 
+const Tab = createMaterialTopTabNavigator();
 
-function TabNavigation(props) {
+function TabNavigation() {
   return (
-    <Tab.Navigator screenOptions={tabBarScreenOptions} initialRouteName="tab1">
-      <Tab.Screen name="tab1" component={MainComponent} />
-      <Tab.Screen name="tab2" component={MainComponent} />
-      {/* <SubjectContext.Provider value={route.params}> */}
-      <Tab.Screen name="tab3" component={MainComponent} />
-      {/* </SubjectContext.Provider> */}
+    <Tab.Navigator screenOptions={tabBarScreenOptions}>
+      <Tab.Screen name="Top News" component={TopNewsCoomponent} />
+      <Tab.Screen name="All News" component={AllNewsCoomponent} />
     </Tab.Navigator>
   );
 }
