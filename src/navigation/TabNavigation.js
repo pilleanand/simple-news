@@ -1,15 +1,15 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import TopNewsCoomponent from '../components/TopNewsCoomponent';
+import AllNewsCoomponent from '../components/news/AllNewsCoomponent';
+import TopNewsComponent from '../components/news/TopNewsComponent';
 import { tabBarScreenOptions } from './CommonNavigationProperties';
-import AllNewsCoomponent from '../components/AllNewsCoomponent';
 
 const Tab = createMaterialTopTabNavigator();
 
 function TabNavigation() {
   return (
     <Tab.Navigator screenOptions={tabBarScreenOptions}>
-      <Tab.Screen name="Top News" component={TopNewsCoomponent} />
+      <Tab.Screen name="Top News" component={TopNewsComponent} />
       <Tab.Screen name="All News" component={AllNewsCoomponent} />
     </Tab.Navigator>
   );
