@@ -10,7 +10,7 @@ function TabNavigation() {
   return (
     <Tab.Navigator screenOptions={tabBarScreenOptions}>
       <Tab.Screen name="Top News" component={TopNewsComponent} />
-      <Tab.Screen name="All News" component={AllNewsCoomponent} />
+      <Tab.Screen name="Technology" component={AllNewsCoomponent} />
     </Tab.Navigator>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { FlatList, StyleSheet, Image, View, TouchableOpacity } from 'react-native';
 import { Card, CardItem, Text, Icon, Left, Right } from 'native-base';
 import { fetchNewsDataApi } from '../../apis/NewsApi';
 import { getRelativeDate } from '../../util/DateUtility';
@@ -30,7 +30,7 @@ const NewsComponent = (props) => {
     props.navigation.navigate('NewsDetails', { article });
   }
 
-  renderArticleItem = ({ item }) => ((
+  const renderArticleItem = ({ item }) => ((
     <TouchableOpacity onPress={() => onNewsItemPress(item)}>
       <Card>
         <CardItem>
@@ -52,12 +52,21 @@ const NewsComponent = (props) => {
     </TouchableOpacity>
   ));
 
+  const renderEmptyComponent = () => ((
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', height: getDeviceHeight() - 150 }}>
+      <Text style={{ textAlign: 'center' }}>
+        {showProgress ? 'Loading news, Please wait...' : 'No News found, Please try again later'}
+      </Text>
+    </View>
+  ));
+
   return (
     <FlatList
       data={newsData}
       renderItem={renderArticleItem}
       onRefresh={onRefresh}
       refreshing={showProgress}
+      ListEmptyComponent={renderEmptyComponent()}
       keyExtractor={(item) => 'articles' + Math.random() * 1000}
       style={styles.flatlistStyle}
     />
